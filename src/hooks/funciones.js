@@ -1,11 +1,14 @@
-export function funcionesBtn() {
-
-  const limpiarAddSupplier = () => {
-    document.getElementById('txtEmpresa').value = "";
+const funcionesBtn = () => {
+  const limpiarAddSupplier = (refs) => {
+    if (!Array.isArray(refs)) return; 
+    refs.forEach((ref) => {
+      if (ref.current) {
+        ref.current.value = "";
+      }
+    });
   };
 
-  return {limpiarAddSupplier}
-
-}
+  return { limpiarAddSupplier };
+};
 
 export default funcionesBtn;

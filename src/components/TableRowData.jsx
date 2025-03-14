@@ -1,7 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePen, faTrash } from "@fortawesome/free-solid-svg-icons";
-import ModalUpdateSupplier from "./ModalUpdateSupplier";
 
 function TableRowData() {
   const toggle = "modal";
@@ -29,7 +28,6 @@ function TableRowData() {
           </td>
         </tr>
       </tbody>
-      <ModalUpdateSupplier modalTarget={target} />
     </>
   );
 }

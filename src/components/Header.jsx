@@ -2,9 +2,9 @@ import React from "react";
 
 function Header() {
   return (
-    <nav class="navbar">
-      <div class="container-fluid">
-        <h2 class="navbar-brand w-100 text-center mb-3 h1 text-white">Gestion de Proveedores</h2>
+    <nav className="navbar">
+      <div className="container-fluid">
+        <h2 className="navbar-brand w-100 text-center mb-3 h1 text-white">Gestion de Proveedores</h2>
       </div>
     </nav>
   );

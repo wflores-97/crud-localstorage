@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
-//import funcionesBtn from "../hooks/funciones";
+import funcionesBtn from "../hooks/funciones";
 import useFormatInput from "../hooks/useFormatIput";
 
 function ModalUpdateSupplier({ modalTarget }) {
   const { inputValue, handleSetInputValue } = useFormatInput();
-  //const {limpiarAddSupplier} = funcionesBtn();
+  const { limpiarAddSupplier } = funcionesBtn();
+
+  const empresaRef = useRef(null);
+  const contactoRef = useRef(null);
+  const numeroRef = useRef(null);
+  const emailRef = useRef(null);
 
   return (
     <div
@@ -16,7 +21,7 @@ function ModalUpdateSupplier({ modalTarget }) {
       aria-hidden="true"
     >
       <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content">
+        <div className="modal-content bg-dark text-white">
           <div className="modal-header">
             <h1 className="modal-title fs-5" id="exampleModalLabel">
               Editar Proveedor
@@ -29,12 +34,12 @@ function ModalUpdateSupplier({ modalTarget }) {
             ></button>
           </div>
           <div className="modal-body">
-            {/* Inicio campos para Actualizar Proveedor */}
             <div className="mb-1">
               <label htmlFor="txtEmpresa" className="form-label">
                 Empresa
               </label>
               <input
+                ref={empresaRef}
                 type="text"
                 name="txtEmpresa"
                 id="txtEmpresa"
@@ -42,10 +47,11 @@ function ModalUpdateSupplier({ modalTarget }) {
               />
             </div>
             <div className="mb-1">
-              <label htmlFor="txtEmpresa" className="form-label">
+              <label htmlFor="txtContacto" className="form-label">
                 Nombre de contacto
               </label>
               <input
+                ref={contactoRef}
                 type="text"
                 name="txtContacto"
                 id="txtContacto"
@@ -53,11 +59,12 @@ function ModalUpdateSupplier({ modalTarget }) {
               />
             </div>
             <div className="mb-1">
-              <label htmlFor="txtEmpresa" className="form-label">
-                Telefono
+              <label htmlFor="txtTelefono" className="form-label">
+                Teléfono
               </label>
               <input
-                type="number"
+                ref={numeroRef}
+                type="text"
                 name="txtTelefono"
                 id="txtTelefono"
                 value={inputValue}
@@ -66,26 +73,33 @@ function ModalUpdateSupplier({ modalTarget }) {
               />
             </div>
             <div className="mb-1">
-              <label htmlFor="txtEmpresa" className="form-label">
+              <label htmlFor="txtEmail" className="form-label">
                 Email
               </label>
               <input
-                type="email"
+                ref={emailRef}
+                type="text"
                 name="txtEmail"
                 id="txtEmail"
                 className="form-control"
               />
             </div>
-
-            {/* Fin campos para Actualizar Proveedor */}
           </div>
           <div className="modal-footer">
             <button
               type="button"
               className="btn btn-secondary"
               data-bs-dismiss="modal"
+              onClick={() =>
+                limpiarAddSupplier([
+                  empresaRef,
+                  contactoRef,
+                  numeroRef,
+                  emailRef,
+                ])
+              }
             >
-              Close
+              Cerrar
             </button>
             <button type="button" className="btn btn-primary">
               <FontAwesomeIcon icon={faFloppyDisk} /> Guardar

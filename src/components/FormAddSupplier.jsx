@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 import useFormatInput from "../hooks/useFormatIput";
-//import funcionesBtn from "../hooks/funciones";
+import funcionesBtn from "../hooks/funciones";
 
 function FormAddSupplier() {
   const { inputValue, handleSetInputValue } = useFormatInput();
-  //const {limpiarAddSuplier} = funcionesBtn();
+  const { limpiarAddSupplier } = funcionesBtn();
 
-  const handleSubmit =(e)=>{
-    e.preventDefault()
-  }
+  const empresaRef = useRef(null);
+  const contactoRef = useRef(null);
+  const numeroRef = useRef(null);
+  const emailRef = useRef(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <form className="text-white" onSubmit={handleSubmit}>
       <div className="accordion" id="accordionExample">
@@ -38,6 +43,7 @@ function FormAddSupplier() {
                   Empresa
                 </label>
                 <input
+                  ref={empresaRef}
                   type="text"
                   name="txtEmpresa"
                   id="txtEmpresa"
@@ -45,37 +51,40 @@ function FormAddSupplier() {
                 />
               </div>
               <div className="mb-1">
-                <label htmlFor="txtEmpresa" className="form-label">
+                <label htmlFor="txtContacto" className="form-label">
                   Nombre de contacto
                 </label>
                 <input
+                  ref={contactoRef}
                   type="text"
-                  name="txtEmpresa"
-                  id="txtEmpresa"
+                  name="txtContacto"
+                  id="txtContacto"
                   className="form-control"
                 />
               </div>
               <div className="mb-1">
-                <label htmlFor="txtEmpresa" className="form-label">
+                <label htmlFor="txtTelefono" className="form-label">
                   Telefono
                 </label>
                 <input
+                  ref={numeroRef}
                   type="text"
-                  name="txtEmpresa"
-                  id="txtEmpresa"
+                  name="txtTelefono"
+                  id="txtTelefono"
                   value={inputValue}
                   onChange={handleSetInputValue}
                   className="form-control"
                 />
               </div>
               <div className="mb-1">
-                <label htmlFor="txtEmpresa" className="form-label">
+                <label htmlFor="txtEmail" className="form-label">
                   Email
                 </label>
                 <input
+                  ref={emailRef}
                   type="text"
-                  name="txtEmpresa"
-                  id="txtEmpresa"
+                  name="txtEmail"
+                  id="txtEmail"
                   className="form-control"
                 />
               </div>
@@ -83,7 +92,17 @@ function FormAddSupplier() {
                 <button className="btn btn-primary">
                   <FontAwesomeIcon icon={faFloppyDisk} /> Guardar
                 </button>
-                <button className="btn btn-danger">
+                <button
+                  className="btn btn-danger"
+                  onClick={() =>
+                    limpiarAddSupplier([
+                      empresaRef,
+                      contactoRef,
+                      numeroRef,
+                      emailRef,
+                    ])
+                  }
+                >
                   <FontAwesomeIcon icon={faDeleteLeft} /> Limpiar
                 </button>
               </div>
