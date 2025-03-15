@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 function useApiCrud() {
   const [newSupplier, setNewSupplier] = useState([]);
@@ -26,6 +27,11 @@ function useApiCrud() {
 
     setNewSupplier(updatedSuppliers);
     localStorage.setItem("Suppliers", JSON.stringify(updatedSuppliers));
+    Swal.fire({
+      text: 'Datos guardados con exito',
+      icon: 'success',
+      confirmButtonText: 'Cool'
+    })
   };
 
   const deleteSupplier = (id) => {
@@ -45,6 +51,11 @@ function useApiCrud() {
 
     setNewSupplier(updatedSuppliers);
     localStorage.setItem("Suppliers", JSON.stringify(updatedSuppliers));
+    Swal.fire({
+      text: 'Datos guardados con exito',
+      icon: 'success',
+      confirmButtonText: 'Cool'
+    })
   };
 
   return {
