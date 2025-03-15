@@ -1,17 +1,24 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
-import funcionesBtn from "../hooks/funciones";
 import useFormatInput from "../hooks/useFormatIput";
 
-function ModalUpdateSupplier({ modalTarget }) {
+function ModalUpdateSupplier({ modalTarget, supplier }) {
   const { inputValue, handleSetInputValue } = useFormatInput();
-  const { limpiarAddSupplier } = funcionesBtn();
 
   const empresaRef = useRef(null);
   const contactoRef = useRef(null);
   const numeroRef = useRef(null);
   const emailRef = useRef(null);
+
+  useEffect(() => {
+    if (supplier) {
+      empresaRef.current.value = supplier.empresa || "";
+      contactoRef.current.value = supplier.contacto || "";
+      numeroRef.current.value = supplier.telefono || "";
+      emailRef.current.value = supplier.email || "";
+    }
+  }, [supplier]);
 
   return (
     <div
@@ -90,14 +97,6 @@ function ModalUpdateSupplier({ modalTarget }) {
               type="button"
               className="btn btn-secondary"
               data-bs-dismiss="modal"
-              onClick={() =>
-                limpiarAddSupplier([
-                  empresaRef,
-                  contactoRef,
-                  numeroRef,
-                  emailRef,
-                ])
-              }
             >
               Cerrar
             </button>

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import useApiCrud from "../hooks/useApiCrud";
+import ModalUpdateSupplier from "./ModalUpdateSupplier";
 
 function TableRowData() {
   const { getSuppliers, deleteSupplier } = useApiCrud();
   const [proveedores, setProveedores] = useState([]);
+  const [selectedSupplier, setSelectedSupplier] = useState(null);
   const toggle = "modal";
   const target = "exampleModal";
 
@@ -19,6 +21,7 @@ function TableRowData() {
   };
 
   return (
+    <>
     <tbody>
       {proveedores.length > 0 ? (
         proveedores.map((prov) => (
@@ -32,6 +35,7 @@ function TableRowData() {
                 className="btn btn-primary"
                 data-bs-toggle={toggle}
                 data-bs-target={`#${target}`}
+                onClick={() => setSelectedSupplier(prov)}
               >
                 <FontAwesomeIcon icon={faFilePen} />
               </button>
@@ -47,6 +51,8 @@ function TableRowData() {
         </tr>
       )}
     </tbody>
+    <ModalUpdateSupplier modalTarget={target} supplier={selectedSupplier} />
+    </>
   );
 }
 
