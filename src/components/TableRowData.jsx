@@ -4,7 +4,7 @@ import { faFilePen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import useApiCrud from "../hooks/useApiCrud";
 
 function TableRowData() {
-  const { getSuppliers } = useApiCrud();
+  const { getSuppliers, deleteSupplier } = useApiCrud();
   const [proveedores, setProveedores] = useState([]);
   const toggle = "modal";
   const target = "exampleModal";
@@ -12,6 +12,11 @@ function TableRowData() {
   useEffect(() => {
     setProveedores(getSuppliers());
   }, [getSuppliers]);
+
+  const handleDelete = (id) => {
+    deleteSupplier(id);
+    setProveedores(getSuppliers()); // Actualizar el estado después de eliminar
+  };
 
   return (
     <tbody>
@@ -30,7 +35,7 @@ function TableRowData() {
               >
                 <FontAwesomeIcon icon={faFilePen} />
               </button>
-              <button className="btn btn-danger">
+              <button className="btn btn-danger" onClick={() => handleDelete(prov.id)}>
                 <FontAwesomeIcon icon={faTrash} />
               </button>
             </td>

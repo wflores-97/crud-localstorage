@@ -28,12 +28,19 @@ function useApiCrud() {
     localStorage.setItem("Suppliers", JSON.stringify(updatedSuppliers));
   };
 
+  const deleteSupplier = (id) => {
+    const updatedSuppliers = newSupplier.filter(supplier => supplier.id !== id);
+    setNewSupplier(updatedSuppliers);
+    localStorage.setItem("Suppliers", JSON.stringify(updatedSuppliers));
+  };
+
   const getSuppliers = () => {
     return newSupplier;
   };
 
   return {
     addSuppliers,
+    deleteSupplier,
     getSuppliers,
   };
 }
