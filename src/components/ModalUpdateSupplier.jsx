@@ -2,9 +2,11 @@ import React, { useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import useFormatInput from "../hooks/useFormatIput";
+import useApiCrud from "../hooks/useApiCrud";
 
 function ModalUpdateSupplier({ modalTarget, supplier }) {
   const { inputValue, handleSetInputValue } = useFormatInput();
+  const {  updateSupplier } = useApiCrud();
 
   const empresaRef = useRef(null);
   const contactoRef = useRef(null);
@@ -19,6 +21,19 @@ function ModalUpdateSupplier({ modalTarget, supplier }) {
       emailRef.current.value = supplier.email || "";
     }
   }, [supplier]);
+
+  const handleSave = () => {
+    if (!supplier) return;
+
+    const updatedData = {
+      empresa: empresaRef.current.value,
+      contacto: contactoRef.current.value,
+      telefono: numeroRef.current.value,
+      email: emailRef.current.value,
+    };
+
+    updateSupplier(supplier.id, updatedData);
+  };
 
   return (
     <div
@@ -100,7 +115,11 @@ function ModalUpdateSupplier({ modalTarget, supplier }) {
             >
               Cerrar
             </button>
-            <button type="button" className="btn btn-primary">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleSave}
+            >
               <FontAwesomeIcon icon={faFloppyDisk} /> Guardar
             </button>
           </div>

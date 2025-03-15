@@ -38,8 +38,18 @@ function useApiCrud() {
     return newSupplier;
   };
 
+  const updateSupplier = (id, updatedData) => {
+    const updatedSuppliers = newSupplier.map(supplier =>
+      supplier.id === id ? { ...supplier, ...updatedData } : supplier
+    );
+
+    setNewSupplier(updatedSuppliers);
+    localStorage.setItem("Suppliers", JSON.stringify(updatedSuppliers));
+  };
+
   return {
     addSuppliers,
+    updateSupplier,
     deleteSupplier,
     getSuppliers,
   };
